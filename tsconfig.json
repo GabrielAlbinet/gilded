@@ -8,13 +8,11 @@
     "baseUrl": "./",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "types": ["vitest/globals"],
+    "ignoreDeprecations": "6.0",
     "paths": {
-      "@/*": [
-        "app/*"
-      ]
+      "@/*": ["app/*"]
     }
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
