@@ -1,0 +1,24 @@
+À partir des spécifications et du code fournis, réalisez les étapes suivantes dans l'ordre :
+
+1 - Test
+Écrivez des tests unitaires permettant de vérifier le comportement actuel du code en vous basant sur les spécifications fournies.
+L'objectif est de disposer d'une couverture suffisante du comportement existant avant de modifier le code.
+
+2 - Refactorer le code
+Refactorez le code afin de le rendre plus lisible, compréhensible et facile à faire évoluer.
+Le comportement du programme ne doit pas changer pendant cette étape.
+Utilisez les tests écrits précédemment pour vérifier que votre refactoring ne modifie pas le comportement existant.
+
+3 - TDD
+Ajoutez la fonctionnalité permettant de gérer les objets maudits en utilisant une démarche TDD.
+
+=================================================================================================
+Infos
+
+Lancer la commande des tests approval (C.F: README.md) pour vous assurer que votre code reste cohérent avec les résultats attendus.
+
+N'oubliez pas de faire des commits régulièrement.
+
+Refactoring = changer la structure du code sans en modifier le comportement
+
+Approval test = technique de test logicielle qui vérifie le comportement d'un système en comparant la sortie actuelle du code à une référence approuvée
