@@ -8,58 +8,6 @@ export class Item {
     this.sellIn = sellIn;
     this.quality = quality;
   }
-
-  gainQuality(gainedQuality: number = 1) {
-    if (this.quality + gainedQuality > 50) {
-      this.quality = 50;
-    } else {
-      this.quality = this.quality + gainedQuality;
-    }
-  }
-
-  loseQuality(lostQuality: number = 1) {
-    if (this.quality - lostQuality < 0) {
-      this.quality = 0;
-    } else {
-      this.quality = this.quality - lostQuality;
-    }
-  }
-
-  updateNormalItem(): void {
-    this.sellIn -= 1;
-    this.loseQuality();
-
-    if (this.sellIn < 0) {
-      this.loseQuality();
-    }
-  }
-
-  updateAgedBrie(): void {
-    this.gainQuality();
-    this.sellIn -= 1;
-
-    if (this.sellIn < 0) {
-      this.gainQuality();
-    }
-  }
-
-  updateBackstagePass(): void {
-    this.gainQuality();
-
-    if (this.sellIn < 11) {
-      this.gainQuality();
-    }
-
-    if (this.sellIn < 6) {
-      this.gainQuality();
-    }
-
-    this.sellIn -= 1;
-
-    if (this.sellIn < 0) {
-      this.quality = 0;
-    }
-  }
 }
 
 export class GildedRose {
@@ -69,19 +17,71 @@ export class GildedRose {
     this.items = items;
   }
 
+  gainQuality(item: Item, amount: number = 1): void {
+    if (item.quality + amount > 50) {
+      item.quality = 50;
+    } else {
+      item.quality = item.quality + amount;
+    }
+  }
+
+  loseQuality(item: Item, amount: number = 1): void {
+    if (item.quality - amount < 0) {
+      item.quality = 0;
+    } else {
+      item.quality = item.quality - amount;
+    }
+  }
+
+  updateNormalItem(item: Item): void {
+    item.sellIn -= 1;
+    this.loseQuality(item);
+
+    if (item.sellIn < 0) {
+      this.loseQuality(item);
+    }
+  }
+
+  updateAgedBrie(item: Item): void {
+    this.gainQuality(item);
+    item.sellIn -= 1;
+
+    if (item.sellIn < 0) {
+      this.gainQuality(item);
+    }
+  }
+
+  updateBackstagePass(item: Item): void {
+    this.gainQuality(item);
+
+    if (item.sellIn < 11) {
+      this.gainQuality(item);
+    }
+
+    if (item.sellIn < 6) {
+      this.gainQuality(item);
+    }
+
+    item.sellIn -= 1;
+
+    if (item.sellIn < 0) {
+      item.quality = 0;
+    }
+  }
+
   updateQuality() {
     for (const item of this.items) {
       switch (item.name) {
         case 'Aged Brie':
-          item.updateAgedBrie();
+          this.updateAgedBrie(item);
           break;
         case 'Sulfuras, Hand of Ragnaros':
           break;
         case 'Backstage passes to a TAFKAL80ETC concert':
-          item.updateBackstagePass();
+          this.updateBackstagePass(item);
           break;
         default:
-          item.updateNormalItem();
+          this.updateNormalItem(item);
           break;
       }
     }
