@@ -69,23 +69,37 @@ export class GildedRose {
     }
   }
 
+  updateConjuredItem(item: Item): void {
+    item.sellIn -= 1;
+    this.loseQuality(item, 2);
+
+    if (item.sellIn < 0) {
+      this.loseQuality(item, 2);
+    }
+  }
+
   updateQuality() {
-    for (const item of this.items) {
-      switch (item.name) {
-        case 'Aged Brie':
-          this.updateAgedBrie(item);
-          break;
-        case 'Sulfuras, Hand of Ragnaros':
-          break;
-        case 'Backstage passes to a TAFKAL80ETC concert':
-          this.updateBackstagePass(item);
-          break;
-        default:
-          this.updateNormalItem(item);
-          break;
-      }
+  for (const item of this.items) {
+    if (item.name.includes('Conjured')) {
+      this.updateConjuredItem(item);
+      continue;
     }
 
-    return this.items;
+    switch (item.name) {
+      case 'Aged Brie':
+        this.updateAgedBrie(item);
+        break;
+      case 'Sulfuras, Hand of Ragnaros':
+        break;
+      case 'Backstage passes to a TAFKAL80ETC concert':
+        this.updateBackstagePass(item);
+        break;
+      default:
+        this.updateNormalItem(item);
+        break;
+    }
   }
+
+  return this.items;
+}
 }
