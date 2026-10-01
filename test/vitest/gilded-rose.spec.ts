@@ -127,12 +127,21 @@ describe('Gilded Rose - Backstage passes', () => {
 });
 
 describe('Gilded Rose - Conjured', () => {
-  it('dégrade actuellement comme un article normal (bug)', () => {
-    const conjured = new Item('tenders maudit', 3, 6);
+  it('dégrade la qualité 2 fois plus vite pour tout article contenant "Conjured"', () => {
+    const conjured = new Item('Conjured Mana Cake', 3, 6);
     const gildedRose = new GildedRose([conjured]);
 
     gildedRose.updateQuality();
 
-    expect(gildedRose.items[0].quality).toBe(5);
+    expect(gildedRose.items[0].quality).toBe(4);
+  });
+
+  it('fonctionne aussi pour un autre nom contenant "Conjured"', () => {
+    const conjured = new Item('Conjured Sword', 3, 10);
+    const gildedRose = new GildedRose([conjured]);
+
+    gildedRose.updateQuality();
+
+    expect(gildedRose.items[0].quality).toBe(8);
   });
 });
