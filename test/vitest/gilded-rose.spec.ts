@@ -125,3 +125,14 @@ describe('Gilded Rose - Backstage passes', () => {
     expect(gildedRose.items[0].quality).toBe(50);
   });
 });
+
+describe('Gilded Rose - Conjured', () => {
+  it('dégrade actuellement comme un article normal (bug)', () => {
+    const conjured = new Item('tenders maudit', 3, 6);
+    const gildedRose = new GildedRose([conjured]);
+
+    gildedRose.updateQuality();
+
+    expect(gildedRose.items[0].quality).toBe(5);
+  });
+});
